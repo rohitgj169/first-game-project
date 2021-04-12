@@ -1,0 +1,63 @@
+*/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set core body defaults */
+body {
+  margin: 0;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+img {
+  width: 100%;
+}
+
+header {
+  /* border: 5px solid blue; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+main {
+  /* border: 5px solid red; */
+  margin-top: 5rem;
+  display: flex;
+  justify-content: space-around;
+  /* height: 75vh; */
+}
+
+footer {
+  /* margin-top: 2rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+.player-area{
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: center;
+}
+
+.enemy-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.roll-area {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    width: 30vw;
+}

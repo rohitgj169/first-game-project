@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <script src="./assets/gameplayers.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h3 class="current-level">Level:</h3>
+      <h3 class="current-score">Current Score:</h3>
+      <h3 class="high-score">High Score :</h3>
+    </header>
+    <main>
+      <div class="player-area">
+        <img
+          class="player-image"
+          src="./assets/images/player.png"
+        />
+        <p class="player-health">Health :</p>
+        <p class="player-attack">Attack :</p>
+      </div>
+      <div class="enemy-area">
+        <img
+          class="enemy-image"
+          src=""
+        />
+        <p class="enemy-health">Health :</p>
+        <p class="enemy-attack">Attack :</p>
+      </div>
+    </main>
+    <footer>
+        <div class="roll-area">
+          <p class="roll, first-roll">x</p>
+          <p class="roll, second-roll">x</p>
+          <p class="roll, third-roll">x</p>
+          <button class="attack-roll-btn">Roll Attack</button>
+          <button class='next-round'>Next</button>
+          <button class='reset-btn'>Reset</button>
+        </div>
+        <div class="combat-log">
+            <p class="damage-log">Combat Log</p>
+            <p class="action-log">Status</p>
+        </div>
+      </footer>
+  </body>
+</html>

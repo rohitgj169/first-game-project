@@ -55,16 +55,12 @@ class Player {
 
 const playerHealthBar = document.querySelector(".player_health_bar");
 const enemyHealthBar = document.querySelector(".enemy_health_bar");
-// setHealthBar(playerHealthBar,50);
-
 const resetBtn = document.querySelector(".reset_game");
 const attackBtn = document.querySelector(".attack_roll_btn");
 const nextEnemy = document.querySelector(".next_round");
 const enemyHealth = document.querySelector(".enemy_health");
-// const enemyAttack = document.querySelector(".enemy_attack");
 const enemyImg = document.querySelector(".enemy_image");
 const playerHealth = document.querySelector(".player_health");
-// const playerAttack = document.querySelector(".player_attack");
 const playerImg = document.querySelector(".player_image");
 const battleLog = document.querySelector(".combat_log");
 const actionLog = document.querySelector(".action_log");
@@ -72,22 +68,23 @@ const firstRoll = document.querySelector(".first_roll");
 const secondRoll = document.querySelector(".second_roll");
 const thirdRoll = document.querySelector(".third_roll");
 const levelNumberEl = document.querySelector(".current_level");
-const highScoreEl = document.querySelector('.high_score');
+const highScoreEl = document.querySelector(".high_score");
 
 let currentEnemyHealth;
 let currentPlayerHealth;
 let enemyStatus = true;
 let playerStatus = true;
 let levelNumber = 0;
-// let rollNumber = 0;
 let difficulty = 2;
 let highScore = 0;
 levelNumberEl.innerHTML = levelNumber;
 highScoreEl.innerHTML = highScore;
 
 const setHealthBar = function (healthbarEl, value) {
-  healthbarEl.querySelector(".health_bar_color").style.width = `${value}%`;
-  healthbarEl.querySelector(".health_value").innerHTML = `${value}%`;
+  healthbarEl.querySelector(".health_bar_color").style.width = `${value.toFixed(
+    1
+  )}%`;
+  healthbarEl.querySelector(".health_value").innerHTML = `${value.toFixed(1)}%`;
 };
 
 let chooseEnemy = function (difficulty) {
@@ -102,8 +99,6 @@ let enemyBaseHealth;
 let loadPlayer = function () {
   let currentPlayer = new Player(1, 12, 100, "./assets/player_card.png");
   setHealthBar(playerHealthBar, 100);
-  // playerHealth.innerHTML = `Health: ${currentPlayer.health}`;
-  // playerAttack.innerHTML = `Attack: ${currentPlayer.maxAttack}`;
   playerImg.src = currentPlayer.img;
   currentPlayerHealth = currentPlayer.health;
   playerBaseHealth = currentPlayer.health;
@@ -112,8 +107,6 @@ let loadPlayer = function () {
 
 let loadEnemy = function () {
   let currentEnemy = chooseEnemy(difficulty);
-  // enemyHealth.innerHTML = `Health : ${currentEnemy.health}`;
-  // enemyAttack.innerHTML = `Attack : ${currentEnemy.maxAttack}`;
   enemyImg.src = currentEnemy.img;
   enemyBaseHealth = currentEnemy.health;
   currentEnemyHealth = currentEnemy.health;
@@ -123,6 +116,7 @@ let loadEnemy = function () {
   battleLog.innerHTML = `${currentEnemy.name} has appeared!`;
   return currentEnemy;
 };
+
 let currentEnemy = loadEnemy();
 let currentPlayer = loadPlayer();
 
@@ -135,8 +129,9 @@ let gameRender = function () {
   currentEnemy = loadEnemy();
   currentPlayer = loadPlayer();
   levelNumberEl.innerHTML = levelNumber;
-
-  // roll_number.innerHTML = rollNumber;
+  firstRoll.src = "";
+  secondRoll.src = "";
+  thirdRoll.src = "";
 };
 
 const adjustHealthBar = function (healthbarEl, hpValue, damage, type) {
@@ -145,54 +140,52 @@ const adjustHealthBar = function (healthbarEl, hpValue, damage, type) {
     percent = ((currentEnemyHealth - damage) / hpValue) * 100;
   if (type === "hero")
     percent = ((currentPlayerHealth - damage) / hpValue) * 100;
-  healthbarEl.querySelector(".health_value").innerHTML = `${percent.toFixed(
-    1
-  )}%`;
-  healthbarEl.querySelector(
-    ".health_bar_color"
-  ).style.width = `${percent.toFixed(1)}%`;
+  setHealthBar(healthbarEl, percent);
 };
 
-// console.log(currentEnemy.health);
-// adjustHealthBar(enemyHealthBar,currentEnemy.health,2);
+const healHealthBar = function (healthbarEl, hpValue, healAmount) {
+  let percent = ((currentPlayerHealth + healAmount) / hpValue) * 100;
+  if(percent >100) percent = 100;
+  setHealthBar(healthbarEl, percent);
+};
+
 let attackRoll = function () {
-  // rollNumber++;
-  // roll_number.innerHTML = `${rollNumber}`;
   let currentRoll = [];
   let enemyDamage = currentEnemy.damage();
   let playerDamage = currentPlayer.damage() + difficulty;
   let playerCrit = playerDamage * 2;
   let enemyCrit = enemyDamage * 2;
+  let healAmount = Math.trunc(playerCrit * 0.25);
+  console.log(healAmount);
   for (let i = 0; i < 3; i++) currentRoll[i] = Math.trunc(Math.random() * 2);
-  // console.log(currentRoll);
   firstRoll.src = `./assets/torch${currentRoll[0]}.png`;
   secondRoll.src = `./assets/torch${currentRoll[1]}.png`;
   thirdRoll.src = `./assets/torch${currentRoll[2]}.png`;
+
   let count = currentRoll.length - currentRoll.sort().indexOf(1);
+
   if (count === 1) {
     adjustHealthBar(playerHealthBar, playerBaseHealth, enemyDamage, "hero");
     currentPlayerHealth -= enemyDamage;
-    // playerHealth.innerHTML = `Health: ${currentPlayerHealth}`;
     battleLog.innerHTML = `Your Hero has recieved ${enemyDamage} damage.`;
   }
   if (count === 4) {
     adjustHealthBar(playerHealthBar, playerBaseHealth, enemyCrit, "hero");
     currentPlayerHealth = currentPlayerHealth - enemyCrit;
-    // playerHealth.innerHTML = `Health: ${currentPlayerHealth}`;
     battleLog.innerHTML = `Your Hero has suffered a critical strike of ${enemyCrit} damage.`;
   }
   if (count === 2) {
-    // console.log(enemyBaseHealth,playerDamage);
     adjustHealthBar(enemyHealthBar, enemyBaseHealth, playerDamage, "enemy");
     currentEnemyHealth -= playerDamage;
-    // enemyHealth.innerHTML = `Health: ${currentEnemyHealth}`;
     battleLog.innerHTML = `Your Hero has dealt ${playerDamage} damage.`;
   }
   if (count === 3) {
     adjustHealthBar(enemyHealthBar, enemyBaseHealth, playerCrit, "enemy");
     currentEnemyHealth = currentEnemyHealth - playerCrit;
-    // enemyHealth.innerHTML = `Health: ${currentEnemyHealth}`;
-    battleLog.innerHTML = `Your Hero has dealt a critical strike of ${playerCrit} damage.`;
+    currentPlayerHealth += healAmount;
+    if (currentPlayerHealth > 100) currentPlayerHealth = 100;
+    healHealthBar(playerHealthBar, playerBaseHealth, healAmount);
+    battleLog.innerHTML = `Your Hero has dealt a critical strike of ${playerCrit} and healed 25% of the damage.`;
   }
   if (currentEnemyHealth < 1) {
     enemyHealth.innerHTML = "0%";
@@ -201,10 +194,11 @@ let attackRoll = function () {
     enemyStatus = false;
   }
   if (currentPlayerHealth < 1) {
-    playerHealth.innerHTML = `Health: 0`;
+    playerHealth.innerHTML = "0%";
+    playerHealthBar.querySelector(".health_bar_color").style.width = "0%";
     battleLog.innerHTML = `Your Hero has fallen - Click on Reset to try again.`;
     playerStatus = false;
-    if(levelNumber>highScore) highScore = levelNumber;
+    if (levelNumber > highScore) highScore = levelNumber;
     highScoreEl.innerHTML = highScore;
   }
 };

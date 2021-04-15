@@ -8,6 +8,10 @@ body {
   background-color: black;
 }
 
+span{
+  color: #880808;
+}
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -42,6 +46,7 @@ body {
   font-family: 'Old Standard TT', serif;
   font-size: 3rem;
 }
+
 
 .top_content3 {
   grid-column: 3/4;

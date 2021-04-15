@@ -4,47 +4,74 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script src="./assets/gameplayers.js" defer></script>
-    <title>Document</title>
+    <title>Project 1</title>
   </head>
   <body>
-    <header>
-      <h3 class="current-level">Level:</h3>
-      <h3 class="current-score">Current Score:</h3>
-      <h3 class="high-score">High Score :</h3>
-    </header>
-    <main>
-      <div class="player-area">
-        <img
-          class="player-image"
-          src="./assets/images/player.png"
-        />
-        <p class="player-health">Health :</p>
-        <p class="player-attack">Attack :</p>
+    <div class="container">
+      <div class="top_content1"></div>
+      <div class="top_content2">
+        <h2 class="action_log">SURVIVE</h2>
       </div>
-      <div class="enemy-area">
-        <img
-          class="enemy-image"
-          src=""
-        />
-        <p class="enemy-health">Health :</p>
-        <p class="enemy-attack">Attack :</p>
+      <div class="top_content3"></div>
+      <div class="middle_content1"></div>
+      <div class="middle_content2">
+        <div class="card">
+          <img src="" alt="" class="player_image" />
+          <div class="player_card_bottom">
+            <div class="health_bar player_health_bar">
+              <div class="player_health health_value"></div>
+              <div class="health_bar_color player_health_percent"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="" alt="" class="enemy_image" />
+          <div class="enemy_card_bottom">
+            <div class="health_bar enemy_health_bar">
+              <div class="enemy_health health_value"></div>
+              <div class="health_bar_color enemy_health_percent"></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
-    <footer>
-        <div class="roll-area">
-          <p class="roll, first-roll">x</p>
-          <p class="roll, second-roll">x</p>
-          <p class="roll, third-roll">x</p>
-          <button class="attack-roll-btn">Roll Attack</button>
-          <button class='next-round'>Next</button>
-          <button class='reset-btn'>Reset</button>
+      <div class="middle_content3">
+        <!-- <h3>Current Roll</h3>
+          <h3 class="current_roll"></h3> -->
+      </div>
+      <div class="bottom_content1">
+        <h3>Level</h3>
+        <h3 class="current_level"></h3>
+      </div>
+      <div class="bottom_content2">
+        <div class="reset_game">
+          <button class="reset_button">Reset</button>
         </div>
-        <div class="combat-log">
-            <p class="damage-log">Combat Log</p>
-            <p class="action-log">Status</p>
+        <div class="roll_check">
+          <div class="roll_outcomes">
+            <img src="" alt="" class="first_roll" />
+            <img src="" alt="" class="second_roll" />
+            <img src="" alt="" class="third_roll" />
+          </div>
+          <button class="attack_roll_btn">Roll Attack</button>
         </div>
-      </footer>
+        <div class="next_enemy">
+          <button class="next_round">Next Level</button>
+        </div>
+      </div>
+      <div class="bottom_content3">
+        <h3>High Score</h3>
+        <h3 class="high_score">3</h3>
+      </div>
+      <div class="bottom_content4">
+        <h3 class="combat_log"></h3>
+      </div>
+    </div>
+    <script src="./scripts/main.js"></script>
   </body>
 </html>

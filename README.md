@@ -4,6 +4,8 @@
 
 The objective of the game is for the user to reach the highest level he can with the provided player character. As the rounds progress the difficulty increases.
 
+![Game Screnshot](https://i.imgur.com/NSmheef.png)
+
 ## **Technologies Used**
 
 - HTML

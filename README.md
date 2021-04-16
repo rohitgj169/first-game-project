@@ -4,6 +4,12 @@
 
 The objective of the game is for the user to reach the highest level he can with the provided player character. As the rounds progress the difficulty increases.
 
+## **Technologies Used**
+
+- HTML
+- CSS
+- JavaScript
+
 ### **How the Game works**
 
 - Click on the **_Roll Attack_** button a series of success and failure checks are performed.
@@ -14,6 +20,7 @@ The objective of the game is for the user to reach the highest level he can with
 - The user's player character can regain hit points on each critical success rolls.
 - The user must click the **_Next Level_** button to progress the game loop.
 - The user can click the **_Reset_** button to start over.
+
 
 ## **Future additions**
 

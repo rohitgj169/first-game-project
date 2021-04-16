@@ -39,7 +39,7 @@ let enemies = [
 
 class Player {
   constructor(minAttack, maxAttack, health, img) {
-    this.name = "Warrior";
+    this.name = "The Hero";
     this.minAttack = minAttack;
     this.maxAttack = maxAttack;
     this.health = health;
@@ -69,6 +69,9 @@ const secondRoll = document.querySelector(".second_roll");
 const thirdRoll = document.querySelector(".third_roll");
 const levelNumberEl = document.querySelector(".current_level");
 const highScoreEl = document.querySelector(".high_score");
+const modalEl = document.querySelector(".modal");
+const overlayEl = document.querySelector(".overlay");
+const endScreenText = document.querySelector(".end_screen");
 
 let currentEnemyHealth;
 let currentPlayerHealth;
@@ -77,8 +80,20 @@ let playerStatus = true;
 let levelNumber = 0;
 let difficulty = 2;
 let highScore = 0;
+let playerBaseHealth;
+let enemyBaseHealth;
 levelNumberEl.innerHTML = levelNumber;
 highScoreEl.innerHTML = highScore;
+
+const showModal = function () {
+  modalEl.classList.remove("hidden");
+  overlayEl.classList.remove("hidden");
+};
+
+const closeModal = function () {
+  modalEl.classList.add("hidden");
+  overlayEl.classList.add("hidden");
+};
 
 const setHealthBar = function (healthbarEl, value) {
   healthbarEl.querySelector(".health_bar_color").style.width = `${value.toFixed(
@@ -93,12 +108,10 @@ let chooseEnemy = function (difficulty) {
   return chosenEnemy;
 };
 
-let playerBaseHealth;
-let enemyBaseHealth;
-
 let loadPlayer = function () {
   let currentPlayer = new Player(1, 12, 100, "./assets/player_card.png");
   setHealthBar(playerHealthBar, 100);
+  playerImg.classList.remove("transparency_effect");
   playerImg.src = currentPlayer.img;
   currentPlayerHealth = currentPlayer.health;
   playerBaseHealth = currentPlayer.health;
@@ -112,8 +125,9 @@ let loadEnemy = function () {
   currentEnemyHealth = currentEnemy.health;
   setHealthBar(enemyHealthBar, 100);
   enemyStatus = true;
-  if (difficulty < 22) difficulty++;
-  battleLog.innerHTML = `${currentEnemy.name} has appeared!`;
+  if (difficulty < 20) difficulty++;
+  battleLog.innerHTML = `<span>${currentEnemy.name}</span> has appeared !`;
+  enemyImg.classList.remove("transparency_effect");
   return currentEnemy;
 };
 
@@ -145,18 +159,19 @@ const adjustHealthBar = function (healthbarEl, hpValue, damage, type) {
 
 const healHealthBar = function (healthbarEl, hpValue, healAmount) {
   let percent = ((currentPlayerHealth + healAmount) / hpValue) * 100;
-  if(percent >100) percent = 100;
+  if (percent > 100) percent = 100;
   setHealthBar(healthbarEl, percent);
 };
 
 let attackRoll = function () {
   let currentRoll = [];
-  let enemyDamage = currentEnemy.damage();
-  let playerDamage = currentPlayer.damage() + difficulty;
+  let bonusPlayerDamage = Math.trunc(Math.random() * difficulty) + 1;
+  let bonusEnemyDamage = Math.trunc(Math.random() * difficulty) + 1;
+  let enemyDamage = currentEnemy.damage() + bonusEnemyDamage;
+  let playerDamage = currentPlayer.damage() + bonusPlayerDamage;
   let playerCrit = playerDamage * 2;
   let enemyCrit = enemyDamage * 2;
-  let healAmount = Math.trunc(playerCrit * 0.25);
-  console.log(healAmount);
+  let healAmount = Math.trunc(playerCrit * 0.15);
   for (let i = 0; i < 3; i++) currentRoll[i] = Math.trunc(Math.random() * 2);
   firstRoll.src = `./assets/torch${currentRoll[0]}.png`;
   secondRoll.src = `./assets/torch${currentRoll[1]}.png`;
@@ -167,17 +182,17 @@ let attackRoll = function () {
   if (count === 1) {
     adjustHealthBar(playerHealthBar, playerBaseHealth, enemyDamage, "hero");
     currentPlayerHealth -= enemyDamage;
-    battleLog.innerHTML = `Your Hero has recieved ${enemyDamage} damage.`;
+    battleLog.innerHTML = `Your Hero has recieved <span>${enemyDamage}</span> damage.`;
   }
   if (count === 4) {
     adjustHealthBar(playerHealthBar, playerBaseHealth, enemyCrit, "hero");
     currentPlayerHealth = currentPlayerHealth - enemyCrit;
-    battleLog.innerHTML = `Your Hero has suffered a critical strike of ${enemyCrit} damage.`;
+    battleLog.innerHTML = `Your Hero has suffered a critical strike of <span>${enemyCrit}</span> damage.`;
   }
   if (count === 2) {
     adjustHealthBar(enemyHealthBar, enemyBaseHealth, playerDamage, "enemy");
     currentEnemyHealth -= playerDamage;
-    battleLog.innerHTML = `Your Hero has dealt ${playerDamage} damage.`;
+    battleLog.innerHTML = `Your Hero has dealt <span>${playerDamage}</span> damage.`;
   }
   if (count === 3) {
     adjustHealthBar(enemyHealthBar, enemyBaseHealth, playerCrit, "enemy");
@@ -185,21 +200,25 @@ let attackRoll = function () {
     currentPlayerHealth += healAmount;
     if (currentPlayerHealth > 100) currentPlayerHealth = 100;
     healHealthBar(playerHealthBar, playerBaseHealth, healAmount);
-    battleLog.innerHTML = `Your Hero has dealt a critical strike of ${playerCrit} and healed 25% of the damage.`;
+    battleLog.innerHTML = `Your Hero has dealt a critical strike of <span>${playerCrit}</span> and healed 15% of the damage.`;
   }
   if (currentEnemyHealth < 1) {
     enemyHealth.innerHTML = "0%";
+    enemyImg.classList.add("transparency_effect");
     enemyHealthBar.querySelector(".health_bar_color").style.width = "0%";
-    battleLog.innerHTML = `${playerDamage} Damage, Enemy Slain - Click on Next to continue.`;
+    battleLog.innerHTML = `<span>${playerDamage}</span> Damage, Enemy Slain - Click on Next to continue.`;
     enemyStatus = false;
   }
   if (currentPlayerHealth < 1) {
     playerHealth.innerHTML = "0%";
+    playerImg.classList.add("transparency_effect");
     playerHealthBar.querySelector(".health_bar_color").style.width = "0%";
     battleLog.innerHTML = `Your Hero has fallen - Click on Reset to try again.`;
     playerStatus = false;
     if (levelNumber > highScore) highScore = levelNumber;
     highScoreEl.innerHTML = highScore;
+    endScreenText.innerHTML = `Your Score: ${levelNumber}`;
+    showModal();
   }
 };
 
@@ -222,6 +241,6 @@ attackBtn.addEventListener("click", function () {
   } else return;
 });
 
-resetBtn.addEventListener("click", function () {
-  gameRender();
-});
+resetBtn.addEventListener("click", gameRender);
+
+overlayEl.addEventListener("click", closeModal);

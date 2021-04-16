@@ -9,6 +9,14 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Project 1</title>
   </head>
@@ -26,7 +34,7 @@
           <div class="player_card_bottom">
             <div class="health_bar player_health_bar">
               <div class="player_health health_value"></div>
-              <div class="health_bar_color player_health_percent"></div>
+              <div class="health_bar_color"></div>
             </div>
           </div>
         </div>
@@ -35,15 +43,12 @@
           <div class="enemy_card_bottom">
             <div class="health_bar enemy_health_bar">
               <div class="enemy_health health_value"></div>
-              <div class="health_bar_color enemy_health_percent"></div>
+              <div class="health_bar_color"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="middle_content3">
-        <!-- <h3>Current Roll</h3>
-          <h3 class="current_roll"></h3> -->
-      </div>
+      <div class="middle_content3"></div>
       <div class="bottom_content1">
         <h3>Level</h3>
         <h3 class="current_level"></h3>
@@ -72,6 +77,11 @@
         <h3 class="combat_log"></h3>
       </div>
     </div>
+    <div class="modal hidden">
+      <h4>You Died</h4>
+      <p class="end_screen"></p>
+    </div>
+    <div class="overlay hidden"></div>
     <script src="./scripts/main.js"></script>
   </body>
 </html>

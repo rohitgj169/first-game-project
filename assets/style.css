@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@700&display=swap');
-
 * {
   box-sizing: border-box;
 }
@@ -31,7 +29,6 @@ span{
 
 .container div {
   padding: 5px;
-  /* border: 1px solid white; */
 }
 
 .top_content1 {
@@ -45,6 +42,7 @@ span{
   align-items: center;
   font-family: 'Old Standard TT', serif;
   font-size: 3rem;
+  cursor: default;
 }
 
 
@@ -62,6 +60,7 @@ span{
 .middle_content2 {
   display: flex;
   justify-content: space-around;
+  cursor: default;
 }
 
 .middle_content3 {
@@ -80,6 +79,7 @@ span{
   border: 5px solid #880808;
   font-size: 15px;
   font-family: 'Press Start 2P', cursive;
+  cursor: default;
 }
 
 .bottom_content2 {
@@ -96,13 +96,14 @@ span{
   border: 5px solid #880808;
   font-size: 15px;
   font-family: 'Press Start 2P', cursive;
+  cursor: default;
 }
 .bottom_content4 {
   grid-column: 2/3;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid red; */
+  cursor: default;
 }
 
 .cards {
@@ -112,9 +113,6 @@ span{
   grid-template-rows: 3fr 1fr;
 }
 
-/* .card{
-    box-shadow: 0 0 3px rgba(241, 239, 239, 0.1);
-} */
 
 .player_card_bottom,
 .enemy_card_bottom {
@@ -150,12 +148,14 @@ span{
 }
 
 .attack_roll_btn {
-  border: 0.1em solid white;
+  border: 0.1em solid #e5dd90;
   border-radius: 0.12em;
   width: 10rem;
   height: 2rem;
   text-decoration: none;
-  font-family: sans-serif;
+  font-family: 'Pirata One', cursive;
+  letter-spacing: .1em;
+  font-size: 18px;
   font-weight: 300;
   color: white;
   background-color: black;
@@ -171,13 +171,15 @@ span{
 }
 
 .reset_button {
-  border: 0.1em solid white;
+  border: 0.1em solid #e5dd90;
   border-radius: 0.12em;
   width: 8rem;
   height: 4rem;
   text-decoration: none;
-  font-family: sans-serif;
-  font-weight: 600;
+  font-family: 'Pirata One', cursive;
+  font-size: 20px;
+  letter-spacing: .1em;
+  font-weight: 400;
   color: white;
   background-color: black;
   text-align: center;
@@ -193,13 +195,15 @@ span{
 }
 
 .next_round{
-  border: 0.1em solid white;
+  border: 0.1em solid #e5dd90;
   border-radius: 0.12em;
   width: 8rem;
   height: 4rem;
   text-decoration: none;
-  font-family: sans-serif;
-  font-weight: 600;
+  font-family: 'Pirata One', cursive;
+  font-size: 20px;
+  letter-spacing: .1em;
+  font-weight: 400;
   color: white;
   background-color: black;
   text-align: center;
@@ -238,4 +242,46 @@ span{
     align-self: center;
     justify-content: center;
     font-size: 15px;
+}
+
+.combat_log{
+  font-family: 'Old Standard TT', serif;
+}
+
+.hidden{
+  display: none;
+}
+
+.modal{
+  border: 5px solid #880808;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 50%;
+  font-size: 3rem;
+  text-align: center;
+  font-family: 'Pirata One', cursive;
+  letter-spacing: .1em;
+  background-color: black;
+  padding: 6rem;
+  border-radius: 5px;
+  z-index: 3;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.transparency_effect{
+  opacity: 0.5;
 }

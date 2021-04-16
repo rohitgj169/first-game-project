@@ -55,6 +55,7 @@ span{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-right: 80px;
 }
 
 .middle_content2 {
@@ -68,6 +69,7 @@ span{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 100px;
 }
 
 .bottom_content1 {
@@ -269,6 +271,7 @@ span{
   padding: 6rem;
   border-radius: 5px;
   z-index: 3;
+  background-color:rgb(24, 23, 23);
 }
 
 .overlay {

@@ -6,7 +6,7 @@ The objective of the game is for the user to reach the highest level he can with
 
 ![Game Screnshot](https://i.imgur.com/NSmheef.png)
 
-![Game Link](https://rohitgj169.github.io/first-game-project/)
+[Game Link](https://rohitgj169.github.io/first-game-project/)
 
 ## **Technologies Used**
 
